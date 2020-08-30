@@ -48,3 +48,27 @@ Stats: Total Time 10
 Stats: CPU Busy 6 (60.00%)
 Stats: IO Busy  4 (40.00%)
 
+3. Switch the order of the processes: -l 1:0,4:100 now? Does switching the order matter?
+
+it does matter the order in which we order the 
+processes. If we do it like above then while
+the 1st command is waiting for IO the other command
+will be executing. The total time will reduce to
+6 because the first command which takes 5 time units
+will wait while the other command will be executing
+during the 4 times units. all tasks are then
+issued the done status for an additional second.
+
+./process-run.py -c -p -l 1:0,4:100
+Time    PID: 0    PID: 1       CPU       IOs
+  1     RUN:io     READY         1          
+  2    WAITING   RUN:cpu         1         1
+  3    WAITING   RUN:cpu         1         1
+  4    WAITING   RUN:cpu         1         1
+  5    WAITING   RUN:cpu         1         1
+  6*      DONE      DONE         1
+
+Stats: Total Time 6
+Stats: CPU Busy 6 (100.00%)
+Stats: IO Busy  4 (66.67%)
+

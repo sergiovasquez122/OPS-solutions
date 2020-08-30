@@ -99,3 +99,24 @@ Time    PID: 0    PID: 1       CPU       IOs
   7       DONE   RUN:cpu         1          
   8       DONE   RUN:cpu         1          
   9       DONE   RUN:cpu         1     
+
+5. Now, run the same processes, but with the switching behavior set
+to switch to another process whenever one is WAITING for I/O (-l
+1:0,4:100 -c -S SWITCH ON IO). What happens now? Use -c
+and -p to confirm that you are right.
+
+The analysis should now revert back to question (3)
+
+./process-run.py -l 1:0,4:100 -c -S SWITCH_ON_IO -p
+Time    PID: 0    PID: 1       CPU       IOs
+  1     RUN:io     READY         1          
+  2    WAITING   RUN:cpu         1         1
+  3    WAITING   RUN:cpu         1         1
+  4    WAITING   RUN:cpu         1         1
+  5    WAITING   RUN:cpu         1         1
+  6*      DONE      DONE         1
+
+Stats: Total Time 6
+Stats: CPU Busy 6 (100.00%)
+Stats: IO Busy  4 (66.67%)
+

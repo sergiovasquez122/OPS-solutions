@@ -72,3 +72,30 @@ Stats: Total Time 6
 Stats: CPU Busy 6 (100.00%)
 Stats: IO Busy  4 (66.67%)
 
+
+4. We’ll now explore some of the other flags. One important flag is
+-S, which determines how the system reacts when a process is-
+sues an I/O. With the flag set to SWITCH ON END, the system
+will NOT switch to another process while one is doing I/O, in-
+stead waiting until the process is completely finished. What hap-
+pens when you run the following two processes (-l 1:0,4:100
+-c -S SWITCH ON END), one doing I/O and the other doing CPU
+work?
+
+It will no longer execute the CPU instructions while we
+are waiting for the IO process thus we will spend 5 time
+units waiting for the process to complete. From there
+we can execute the CPU instrucions for an additional
+4 seconds. The total time is 9 seconds.
+
+./process-run.py -l 1:0,4:100 -c -S SWITCH_ON_END
+Time    PID: 0    PID: 1       CPU       IOs
+  1     RUN:io     READY         1          
+  2    WAITING     READY                   1
+  3    WAITING     READY                   1
+  4    WAITING     READY                   1
+  5    WAITING     READY                   1
+  6*      DONE   RUN:cpu         1          
+  7       DONE   RUN:cpu         1          
+  8       DONE   RUN:cpu         1          
+  9       DONE   RUN:cpu         1     

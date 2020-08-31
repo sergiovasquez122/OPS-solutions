@@ -199,3 +199,14 @@ Stats: Total Time 16
 Stats: CPU Busy 16 (100.00%)
 Stats: IO Busy  12 (75.00%)
 
+8. Now run with some randomly generated processes: -s 1 -l 3:50,3:50
+or -s 2 -l 3:50,3:50 or -s 3 -l 3:50,3:50. See if you can
+predict how the trace will turn out. What happens when you use
+the flag -I IO RUN IMMEDIATE vs. -I IO RUN LATER? What hap-
+pens when you use -S SWITCH ON IO vs. -S SWITCH ON END?
+
+It seems that the command taht most dramatically decreases
+performance the SWITCH_ON_END command.  commands
+will be stalled and continously waiting while an IO
+is being processed. Other commands performed better and
+equally given the dataset.

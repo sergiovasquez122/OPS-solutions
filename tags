@@ -1,3 +1,4 @@
 !_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
 main	/home/sergio/OPS-solutions/p1.c	/^int main(int argc, char* argv[]){$/;"	f	language:C++
 main	/home/sergio/OPS-solutions/p2.c	/^int main(int argc, char* argv[]){$/;"	f	language:C++
+main	/home/sergio/OPS-solutions/p3.c	/^int main(int argc, char* argv[]){$/;"	f	language:C++

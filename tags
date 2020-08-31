@@ -7,3 +7,4 @@ main	/home/sergio/OPS-solutions/question_1.c	/^int main(int argc, char *argv[]){
 main	/home/sergio/OPS-solutions/question_3.c	/^int main(int argc, char *argv[]){$/;"	f	language:C++
 main	/home/sergio/OPS-solutions/question_5.c	/^int main(int argc, char *argv[]){$/;"	f	language:C++
 main	/home/sergio/OPS-solutions/question_5b.c	/^int main(int argc, char *argv[]){$/;"	f	language:C++
+main	/home/sergio/OPS-solutions/question_6.c	/^int main(int argc, char *argv[]){$/;"	f	language:C++

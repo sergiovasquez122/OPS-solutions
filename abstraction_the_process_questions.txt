@@ -120,3 +120,48 @@ Stats: Total Time 6
 Stats: CPU Busy 6 (100.00%)
 Stats: IO Busy  4 (66.67%)
 
+6. One other important behavior is what to do when an I/O com-
+pletes. With -I IO RUN LATER, when an I/O completes, the pro-
+cess that issued it is not necessarily run right away; rather, whatever
+was running at the time keeps running. What happens when you
+run this combination of processes? (Run ./process-run.py -l
+3:0,5:100,5:100,5:100 -S SWITCH ON IO -I IO RUN LATER
+-c -p) Are system resources being effectively utilized?
+
+
+No it won't be effecient because when we are done with
+an IO process and finish we could run a cpu instruction while 
+we the instruction IO wait for another round of execution.
+It would be more effecient to execute the IO and then
+have the cpu instruction execute while the other process
+is waiting.
+
+./process-run.py -l 3:0,5:100,5:100 S SWITCH_ON_IO -I IO_RUN_LATER -c -p
+Time    PID: 0    PID: 1    PID: 2       CPU       IOs
+  1     RUN:io     READY     READY         1          
+  2    WAITING   RUN:cpu     READY         1         1
+  3    WAITING   RUN:cpu     READY         1         1
+  4    WAITING   RUN:cpu     READY         1         1
+  5    WAITING   RUN:cpu     READY         1         1
+  6*     READY   RUN:cpu     READY         1          
+  7      READY      DONE   RUN:cpu         1          
+  8      READY      DONE   RUN:cpu         1          
+  9      READY      DONE   RUN:cpu         1          
+ 10      READY      DONE   RUN:cpu         1          
+ 11      READY      DONE   RUN:cpu         1          
+ 12     RUN:io      DONE      DONE         1          
+ 13    WAITING      DONE      DONE                   1
+ 14    WAITING      DONE      DONE                   1
+ 15    WAITING      DONE      DONE                   1
+ 16    WAITING      DONE      DONE                   1
+ 17*    RUN:io      DONE      DONE         1          
+ 18    WAITING      DONE      DONE                   1
+ 19    WAITING      DONE      DONE                   1
+ 20    WAITING      DONE      DONE                   1
+ 21    WAITING      DONE      DONE                   1
+ 22*      DONE      DONE      DONE         1
+
+Stats: Total Time 22
+Stats: CPU Busy 14 (63.64%)
+Stats: IO Busy  12 (54.55%)
+

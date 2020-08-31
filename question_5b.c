@@ -12,11 +12,10 @@ int main(int argc, char *argv[]){
 		fprintf(stderr, "fork failed\n");
 		exit(1);
 	} else if(rc == 0){
-
-	} else {
 		int rc_wait = wait(NULL);
 		printf("value of wait: (%d)\n", rc_wait);
-		printf("value of child pid: (%d)\n", rc)
+	} else {
+		printf("parent process\n");
 	}
 	return 0;
 }
